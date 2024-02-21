@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/spring-jook-front">
+      <excludeFolder url="file://$MODULE_DIR$/spring-jook-front/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/spring-jook-front/tmp" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="eeb86a57-f28e-486b-b0ee-dc66eeb5b37f" />
+  </component>
+</module>

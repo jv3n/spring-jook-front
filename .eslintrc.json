@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*", "node_modules/**/*"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.js"],
+      "parserOptions": {
+        "project": ["tsconfig.json", "cypress/tsconfig.json", "cypress.config.ts"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "semi": "error",
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/recommended-requiring-type-checking"]
+    }
+  ]
+}
