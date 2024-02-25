@@ -1,7 +1,4 @@
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:8080',
-  iconUrl: '',
-  loginUrl: '',
-  repositoriesConfiguration: '',
+  API_BASE_PATH: 'http://127.0.0.1:8080',
 };

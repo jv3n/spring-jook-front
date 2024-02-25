@@ -1,7 +1,4 @@
 export const environment = {
   production: false,
-  serverUrl: '',
-  iconUrl: '',
-  loginUrl: '',
-  repositoriesConfiguration: '',
+  API_BASE_PATH: '',
 };

@@ -1,13 +1,13 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from '@core/core.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,16 +18,21 @@ export const appConfig: ApplicationConfig = {
       // Material
       BrowserAnimationsModule,
 
-      // Store
-      StoreModule.forRoot(),
-      EffectsModule.forRoot(),
-      StoreDevtoolsModule.instrument(),
+      // Core
+      CoreModule,
+
+      // // Store
+      // StoreModule.forRoot(),
+      // EffectsModule.forRoot(),
+      // StoreDevtoolsModule.instrument(),
     ),
 
     provideHttpClient(withInterceptorsFromDi()),
 
     // Routing
     provideRouter(appRoutes, withComponentInputBinding(), withRouterConfig({ paramsInheritanceStrategy: 'always' })),
-    provideAnimationsAsync(),
+    provideStore(),
+    provideEffects(),
+    provideStoreDevtools(),
   ],
 };
