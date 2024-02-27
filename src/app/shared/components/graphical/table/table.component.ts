@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-all-countries/find-all-countries.usecase';
 
@@ -11,6 +11,13 @@ import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-a
 export class Table {
   readonly service = inject(FindAllCountriesUsecase);
 
-  cols: string[] = ['id', 'name', 'shortIsoCode', 'longIsoCode', 'countryCode', 'phoneCode'];
   countries = this.service.execute();
+  cols = computed(() => Object.keys(this.countries()![0]));
+
+  constructor() {
+    effect(() => {
+      console.log('c: ', this.countries());
+      console.log('cols: ', this.cols());
+    });
+  }
 }
