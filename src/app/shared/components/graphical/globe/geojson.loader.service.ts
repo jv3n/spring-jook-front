@@ -5,10 +5,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Injectable({
   providedIn: 'root',
 })
-export class JsonLoaderService {
+export class GeojsonLoaderService {
   constructor(private http: HttpClient) {}
 
-  loadJSONFile(url: string): Signal<Response> {
-    return toSignal(this.http.get<any>(url));
+  load(url: string): Signal<Record<string, unknown> | undefined> {
+    return toSignal(this.http.get<Record<string, unknown> | undefined>(url));
   }
 }

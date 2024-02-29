@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatButton } from '@angular/material/button';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatMenuTrigger, MatMenuItem, MatMenu, MatButton],
   selector: 'app-header',
   standalone: true,
-  imports: [MatMenuTrigger, MatMenuItem, MatMenu, MatButton],
   template: `
     <button mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">

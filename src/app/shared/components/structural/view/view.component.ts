@@ -1,11 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NgClass } from '@angular/common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, NgClass],
   selector: 'app-view',
   standalone: true,
-  imports: [RouterOutlet, NgClass],
   template: `
     <div>
       <!-- HEADER -->
@@ -18,8 +19,4 @@ import { NgClass } from '@angular/common';
     </div>
   `,
 })
-export class ViewComponent {
-  readonly #route: ActivatedRoute = inject(ActivatedRoute);
-
-  color: string = 'bg-' + (this.#route.snapshot.data['color'] ?? 'primary');
-}
+export class ViewComponent {}
