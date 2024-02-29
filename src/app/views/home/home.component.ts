@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { GlobeComponent } from '@shared/components/graphical/globe/globe.component';
 import { CountryTableComponent } from '@shared/components/graphical/country/country-table/country-table.component';
+import { GlobeCountryCommandInterface } from '@shared/components/graphical/globe/globe-country-command.interface';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,8 +11,15 @@ import { CountryTableComponent } from '@shared/components/graphical/country/coun
   standalone: true,
   template: `
     <div>
-      <app-globe />
+      <app-globe (onCountryEmitter)="fn($event)" />
     </div>
   `,
 })
-export class HomeComponent {}
+export class HomeComponent {
+  readonly #router = inject(Router);
+
+  fn(e: GlobeCountryCommandInterface) {
+    console.log('home ISO: ', e);
+    void this.#router.navigate(['/countries/', e.iso3]);
+  }
+}

@@ -1,18 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatMenuTrigger, MatMenuItem, MatMenu, MatButton],
+  imports: [MatButton, RouterLink, MatToolbar],
   selector: 'app-header',
   standalone: true,
+  styles: `
+    .mdc-button ~ .mdc-button {
+      margin-left: 1rem;
+    }
+  `,
   template: `
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
-    </mat-menu>
+    <mat-toolbar>
+      <button mat-raised-button [routerLink]="'/home'">Home</button>
+      <button mat-raised-button [routerLink]="'/countries'">Countries</button>
+    </mat-toolbar>
   `,
 })
 export class HeaderComponent {}

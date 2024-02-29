@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import Globe from 'globe.gl';
 import { interpolateYlOrRd, scaleSequentialSqrt } from 'd3';
 import { GeojsonLoaderService } from '@shared/components/graphical/globe/geojson.loader.service';
+import { GlobeCountryCommandInterface } from '@shared/components/graphical/globe/globe-country-command.interface';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,6 +24,9 @@ export class GlobeComponent {
 
   map = this.service.load('assets/geo/map.geojson');
 
+  @Output() onCountryEmitter: EventEmitter<GlobeCountryCommandInterface> =
+    new EventEmitter<GlobeCountryCommandInterface>();
+
   @ViewChild('hearth_globe') container!: ElementRef;
 
   constructor() {
@@ -24,8 +37,10 @@ export class GlobeComponent {
     });
   }
 
-  onClickCountry(event: any) {
-    console.log('long lat: ', event);
+  onCountryClicked(event: any) {
+    this.onCountryEmitter.emit({
+      iso3: event.properties.ISO_A3,
+    });
   }
 
   #generateGlobeCanvas(geoObj: Record<string, unknown>) {
@@ -57,7 +72,7 @@ export class GlobeComponent {
           .polygonAltitude((d: any) => (d === hoverD ? 0.12 : 0.06))
           .polygonCapColor((d: any) => (d === hoverD ? 'steelblue' : colorScale(getVal(d)))),
       )
-      .onPolygonClick((event) => this.onClickCountry(event))
+      .onPolygonClick((event) => this.onCountryClicked(event))
       .polygonsTransitionDuration(300)(this.container.nativeElement);
   }
 }

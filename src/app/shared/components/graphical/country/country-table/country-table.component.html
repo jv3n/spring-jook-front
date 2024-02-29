@@ -1,4 +1,4 @@
-@if (countries() && this.cols()) {
+@if (countries() && this.headers()) {
   <table mat-table [dataSource]="countries()!" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -105,7 +105,7 @@
       <td mat-cell *matCellDef="let cell">{{ cell?.emojiu }}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="cols()"></tr>
-    <tr mat-row *matRowDef="let row; columns: cols()"></tr>
+    <tr mat-header-row *matHeaderRowDef="headers()"></tr>
+    <tr mat-row *matRowDef="let row; columns: headers()"></tr>
   </table>
 }
