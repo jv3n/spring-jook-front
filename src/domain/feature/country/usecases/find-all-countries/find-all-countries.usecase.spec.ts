@@ -6,7 +6,7 @@ describe('FindAllCountriesUsecase', () => {
   it('Should retrieve countries', () => {
     const repository: CountryRepository = {
       getCountries: () => signal([]),
-    } as CountryRepository;
+    } as unknown as CountryRepository;
     const useCase = new FindAllCountriesUsecase(repository);
 
     expect(useCase.execute()()).toStrictEqual([]);

@@ -6,6 +6,7 @@ import { Signal } from '@angular/core';
 import { CountryMapper } from '@adapters/country/mapper/country.mapper';
 import { Country } from '@domain/feature/country/entities/country';
 import { CountryResponse } from '@adapters/data-transfert-object/model/country-response';
+import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
 
 export class CountryApiRepository implements CountryRepository {
   constructor(private readonly httpClient: HttpClient) {}
@@ -14,7 +15,15 @@ export class CountryApiRepository implements CountryRepository {
     return toSignal(
       this.httpClient
         .get<CountryResponse[]>('api/countries')
-        .pipe(map((dtos: CountryResponse[]) => CountryMapper.toEntities(dtos))),
+        .pipe(map((dtos: CountryResponse[]) => CountryMapper.toEntities(dtos)))
+    );
+  }
+
+  getCountryDetail(): Signal<CountryDetail | undefined> {
+    return toSignal(
+      this.httpClient
+        .get<CountryResponse>('api/countries/{iso3}/detail')
+        .pipe(map((dto: CountryResponse) => CountryMapper.toEntity(dto)))
     );
   }
 }
