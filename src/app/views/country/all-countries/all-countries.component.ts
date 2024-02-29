@@ -7,9 +7,7 @@ import { CountryTableComponent } from '@shared/components/graphical/country/coun
   selector: 'app-all-countries',
   standalone: true,
   template: `
-    <div>
-      <app-country-table />
-    </div>
+    <div><app-country-table/></div>
   `,
 })
 export class AllCountriesComponent {}
