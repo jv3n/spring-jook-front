@@ -28,7 +28,7 @@
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": ["core-js"],
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets",
               "src/manifest.json",
               {

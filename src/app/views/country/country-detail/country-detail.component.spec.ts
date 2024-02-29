@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CountryTableComponent } from '@shared/components/graphical/country/country-table/country-table.component';
+import { CountryDetailComponent } from '@views/country/country-detail/country-detail.component';
 
-describe('CountryTableComponent', () => {
-  let fixture: ComponentFixture<CountryTableComponent>;
-  let component: CountryTableComponent;
+describe('CountryDetailComponent', () => {
+  let fixture: ComponentFixture<CountryDetailComponent>;
+  let component: CountryDetailComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, CountryTableComponent],
+      imports: [RouterTestingModule, CountryDetailComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CountryTableComponent);
+    fixture = TestBed.createComponent(CountryDetailComponent);
     component = fixture.componentInstance;
   });
 
