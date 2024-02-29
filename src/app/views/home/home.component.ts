@@ -11,15 +11,14 @@ import { Router } from '@angular/router';
   standalone: true,
   template: `
     <div>
-      <app-globe (onCountryEmitter)="fn($event)" />
+      <app-globe (onCountryEmitter)="navigateToCountryDetail($event)" />
     </div>
   `,
 })
 export class HomeComponent {
   readonly #router = inject(Router);
 
-  fn(e: GlobeCountryCommandInterface) {
-    console.log('home ISO: ', e);
-    void this.#router.navigate(['/countries/', e.iso3]);
+  navigateToCountryDetail(e: GlobeCountryCommandInterface) {
+    void this.#router.navigate(['/countries', e.iso3]);
   }
 }

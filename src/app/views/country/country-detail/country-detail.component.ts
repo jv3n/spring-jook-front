@@ -8,5 +8,4 @@ import { CountryTableComponent } from '@shared/components/graphical/country/coun
   standalone: true,
   template: ` <div>DETAIL COUNTRY</div> `,
 })
-export class CountryDetailComponent {
-}
+export class CountryDetailComponent {}

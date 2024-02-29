@@ -8,7 +8,7 @@ describe('CountryDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, CountryDetailComponent]
+      imports: [RouterTestingModule, CountryDetailComponent],
     }).compileComponents();
   });
 
