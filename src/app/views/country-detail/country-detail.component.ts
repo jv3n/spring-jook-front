@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  Input,
-  signal,
-  Signal,
-  WritableSignal
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
 import { CountryTableComponent } from '@shared/components/graphical/country/country-table/country-table.component';
 import {
   FindCountryDetailUsecase
@@ -20,11 +11,11 @@ import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
   selector: 'app-country-detail',
   standalone: true,
   template: `
-    {{iso3}}
+    {{ iso3 }}
     @if (countryDetail(); as countryDetail) {
       <p>{{ countryDetail.name }}</p>
     }
-  `
+  `,
 })
 export class CountryDetailComponent {
   readonly findCountryDetailUsecase = inject(FindCountryDetailUsecase);
@@ -34,9 +25,9 @@ export class CountryDetailComponent {
 
   constructor() {
     effect(() => {
-      this.findCountryDetailUsecase.execute(this.iso3)
-        .subscribe(countryDetail => this.countryDetail.set(countryDetail));
+      this.findCountryDetailUsecase
+        .execute(this.iso3)
+        .subscribe((countryDetail) => this.countryDetail.set(countryDetail));
     });
   }
-
 }

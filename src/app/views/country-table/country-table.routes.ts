@@ -10,12 +10,12 @@ export default [
       {
         outlet: 'header',
         path: '',
-        children: headerRoutes
+        children: headerRoutes,
       },
       {
         path: '',
-        component: CountryTableViewComponent
-      }
-    ]
-  }
+        component: CountryTableViewComponent,
+      },
+    ],
+  },
 ];

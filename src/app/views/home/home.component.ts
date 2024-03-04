@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
     <div>
       <app-globe (onCountryEmitter)="navigateToCountryDetail($event)" />
     </div>
-  `
+  `,
 })
 export class HomeComponent {
   readonly #router = inject(Router);

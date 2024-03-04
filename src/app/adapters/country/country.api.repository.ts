@@ -10,21 +10,19 @@ import { CountryDetailDto } from '@adapters/data-transfert-object/model/country-
 import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
 
 export class CountryApiRepository implements CountryRepository {
-  constructor(private readonly httpClient: HttpClient) {
-  }
+  constructor(private readonly httpClient: HttpClient) {}
 
   getCountries(): Signal<CountryTable[] | undefined> {
     return toSignal(
       this.httpClient
         .get<CountryTableDto[]>('api/country-table')
-        .pipe(map((dtos: CountryTableDto[]) => CountryMapper.toCountryTableEntities(dtos)))
+        .pipe(map((dtos: CountryTableDto[]) => CountryMapper.toCountryTableEntities(dtos))),
     );
   }
 
   getCountryDetail(iso3: string): Observable<CountryDetail | undefined> {
     return this.httpClient
       .get<CountryDetailDto>(`api/country-detail/${iso3}`)
-      .pipe(map((dto: CountryDetailDto) => CountryMapper.toCountryDetailEntity(dto))
-      );
+      .pipe(map((dto: CountryDetailDto) => CountryMapper.toCountryDetailEntity(dto)));
   }
 }
