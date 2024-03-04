@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockProvider } from 'ng-mocks';
 import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-all-countries/find-all-countries.usecase';
-import { AllCountriesComponent } from '@views/country/all-countries/all-countries.component';
+import { AllCountriesComponent } from '@views/country/all-countries.component';
 
 describe('AllCountriesComponent', () => {
   let fixture: ComponentFixture<AllCountriesComponent>;

@@ -4,8 +4,8 @@ import { CountryTableComponent } from '@shared/components/graphical/country/coun
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CountryTableComponent],
-  selector: 'app-country-detail',
+  selector: 'app-all-countries',
   standalone: true,
-  template: ` <div>DETAIL COUNTRY</div> `,
+  template: ` <div><app-country-table /></div> `,
 })
-export class CountryDetailComponent {}
+export class CountryTableViewComponent {}

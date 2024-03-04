@@ -12,7 +12,7 @@ import {
   MatRowDef,
   MatTable,
 } from '@angular/material/table';
-import { Country } from '@domain/feature/country/entities/country';
+import { CountryTable } from '@domain/feature/country/entities/countryTable';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +35,7 @@ import { Country } from '@domain/feature/country/entities/country';
 export class CountryTableComponent {
   readonly service = inject(FindAllCountriesUsecase);
 
-  countries: Signal<Country[] | undefined>;
+  countries: Signal<CountryTable[] | undefined>;
   headers!: Signal<string[]>;
 
   constructor() {

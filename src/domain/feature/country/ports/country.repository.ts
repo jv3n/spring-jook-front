@@ -1,9 +1,11 @@
 import { Signal } from '@angular/core';
-import { Country } from '@domain/feature/country/entities/country';
+import { CountryTable } from '@domain/feature/country/entities/countryTable';
+import { CountryDetailDto } from '@adapters/data-transfert-object/model/country-detail-dto';
 import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
+import { Observable } from 'rxjs';
 
 export interface CountryRepository {
-  getCountries(): Signal<Country[] | undefined>;
+  getCountries(): Signal<CountryTable[] | undefined>;
 
-  getCountryDetail(): Signal<CountryDetail | undefined>;
+  getCountryDetail(iso3: string): Observable<CountryDetail | undefined>;
 }

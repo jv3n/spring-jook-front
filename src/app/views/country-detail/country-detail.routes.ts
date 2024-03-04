@@ -1,7 +1,6 @@
 import { headerRoutes } from '@views/header/header.routes';
 import { ViewComponent } from '@shared/components/structural/view/view.component';
-import { AllCountriesComponent } from '@views/country/all-countries/all-countries.component';
-import { CountryDetailComponent } from '@views/country/country-detail/country-detail.component';
+import { CountryDetailComponent } from '@views/country-detail/country-detail.component';
 
 export default [
   {
@@ -15,10 +14,6 @@ export default [
       },
       {
         path: '',
-        component: AllCountriesComponent,
-      },
-      {
-        path: ':iso',
         component: CountryDetailComponent,
       },
     ],

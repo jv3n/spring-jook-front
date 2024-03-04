@@ -1,4 +1,8 @@
-## Link
+## Lib Documentation
 
 - [Design System](https://material.angular.io/components/categories)
-- globe: https://github.com/vasturiano/react-globe.gl
+
+## Lib Documentation
+
+- [Design System](https://material.angular.io/components/categories)
+- [Globe.gl](https://github.com/vasturiano/globe.gl)

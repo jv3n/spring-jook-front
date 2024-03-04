@@ -10,29 +10,14 @@
       <td mat-cell *matCellDef="let cell">{{ cell?.name }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="nativeName">
-      <th mat-header-cell *matHeaderCellDef>Native</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.nativeName }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="iso3">
       <th mat-header-cell *matHeaderCellDef>Iso3</th>
       <td mat-cell *matCellDef="let cell">{{ cell?.iso3 }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="iso2">
-      <th mat-header-cell *matHeaderCellDef>Iso2</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.iso2 }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="numericCode">
       <th mat-header-cell *matHeaderCellDef>Code</th>
       <td mat-cell *matCellDef="let cell">{{ cell?.numericCode }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="phoneCode">
-      <th mat-header-cell *matHeaderCellDef>Phone code</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.phoneCode }}</td>
     </ng-container>
 
     <ng-container matColumnDef="capitalName">
@@ -45,29 +30,9 @@
       <td mat-cell *matCellDef="let cell">{{ cell?.currency }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="currencyName">
-      <th mat-header-cell *matHeaderCellDef>Currency name</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.currencyName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="currencySymbol">
-      <th mat-header-cell *matHeaderCellDef>Currency Symbol</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.currencySymbol }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="topLevelDomain">
-      <th mat-header-cell *matHeaderCellDef>tld</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.topLevelDomain }}</td>
-    </ng-container>
-
     <ng-container matColumnDef="region">
       <th mat-header-cell *matHeaderCellDef>Region</th>
       <td mat-cell *matCellDef="let cell">{{ cell?.region }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="regionId">
-      <th mat-header-cell *matHeaderCellDef>Region id</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.regionId }}</td>
     </ng-container>
 
     <ng-container matColumnDef="subregion">
@@ -75,34 +40,14 @@
       <td mat-cell *matCellDef="let cell">{{ cell?.subregion }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="subregionId">
-      <th mat-header-cell *matHeaderCellDef>SubRegion Id</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.subregionId }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="nationality">
-      <th mat-header-cell *matHeaderCellDef>Nationality</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.nationality }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="latitude">
+    <ng-container matColumnDef="latitudeLongitude">
       <th mat-header-cell *matHeaderCellDef>latitude</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.latitude }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="longitude">
-      <th mat-header-cell *matHeaderCellDef>longitude</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.longitude }}</td>
+      <td mat-cell *matCellDef="let cell">{{ cell?.latitudeLongitude }}</td>
     </ng-container>
 
     <ng-container matColumnDef="emoji">
       <th mat-header-cell *matHeaderCellDef>Flag</th>
       <td mat-cell *matCellDef="let cell">{{ cell?.emoji }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="emojiu">
-      <th mat-header-cell *matHeaderCellDef>Flag ref</th>
-      <td mat-cell *matCellDef="let cell">{{ cell?.emojiu }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="headers()"></tr>

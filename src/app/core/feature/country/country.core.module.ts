@@ -4,6 +4,7 @@ import { InjectionToken, NgModule } from '@angular/core';
 import { CountryRepository } from '@domain/feature/country/ports/country.repository';
 import { CountryApiRepository } from '@adapters/country/country.api.repository';
 import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-all-countries/find-all-countries.usecase';
+import { FindCountryDetailUsecase } from '@domain/feature/country/usecases/find-country-detail/find-country-detail.usecase';
 
 export const ICountryRepository = new InjectionToken<CountryRepository>('CountryRepository');
 
@@ -20,6 +21,12 @@ export const ICountryRepository = new InjectionToken<CountryRepository>('Country
     {
       provide: FindAllCountriesUsecase,
       useFactory: (countryRepository: CountryRepository) => new FindAllCountriesUsecase(countryRepository),
+      deps: [ICountryRepository],
+    },
+
+    {
+      provide: FindCountryDetailUsecase,
+      useFactory: (countryRepository: CountryRepository) => new FindCountryDetailUsecase(countryRepository),
       deps: [ICountryRepository],
     },
   ],
