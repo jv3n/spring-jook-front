@@ -39,7 +39,7 @@ export class GlobeComponent {
 
   onCountryClicked(event: any) {
     this.onCountryEmitter.emit({
-      iso3: event.properties.ISO_A3,
+      iso3: event.properties.ADM0_A3,
     });
   }
 
@@ -64,7 +64,7 @@ export class GlobeComponent {
       .polygonStrokeColor(() => '#111')
       .polygonLabel(
         (d: any) => `
-            <b>${d.properties.ADMIN} (${d.properties.ISO_A3}):</b> <br />
+            <b>${d.properties.ADMIN} (${d.properties.ADM0_A3}):</b> <br />
           `,
       )
       .onPolygonHover((hoverD) =>
