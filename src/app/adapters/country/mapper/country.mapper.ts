@@ -26,9 +26,8 @@ export class CountryMapper {
   };
 
   static readonly toCountryDetailEntity = (dto: CountryDetailDto): CountryDetail => ({
-    id: dto.id,
-    name: dto.name,
-    states: CountryMapper.toStateEntities(<StateDto[]>dto.states),
+    country: dto.country,
+    states: CountryMapper.toStateEntities(dto.states as unknown as StateDto[]),
   });
 
   static readonly toStateEntity = (dto: StateDto): State => ({

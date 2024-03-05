@@ -1,6 +1,4 @@
 import { CountryRepository } from '@domain/feature/country/ports/country.repository';
-import { Signal } from '@angular/core';
-import { CountryDetailDto } from '@adapters/data-transfert-object/model/country-detail-dto';
 import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
 import { Observable } from 'rxjs';
 

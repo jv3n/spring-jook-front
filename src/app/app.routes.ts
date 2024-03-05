@@ -9,7 +9,7 @@ export const appRoutes: Routes = [
   {
     path: 'countries',
     title: 'Countries',
-    loadChildren: () => import('@views/country-table/country-table.routes'),
+    loadChildren: () => import('@views/country-table/country-table-view.routes'),
   },
   {
     path: 'country-detail/:iso3',

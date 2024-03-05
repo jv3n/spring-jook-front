@@ -1,19 +1,16 @@
 import { ChangeDetectionStrategy, Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
-import { CountryTableComponent } from '@shared/components/graphical/country/country-table/country-table.component';
-import {
-  FindCountryDetailUsecase
-} from '@domain/feature/country/usecases/find-country-detail/find-country-detail.usecase';
+import { FindCountryDetailUsecase } from '@domain/feature/country/usecases/find-country-detail/find-country-detail.usecase';
 import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
+import { CountryDetailCardComponent } from '@shared/components/graphical/country-detail-card/country-detail-card.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CountryTableComponent],
+  imports: [CountryDetailCardComponent],
   selector: 'app-country-detail',
   standalone: true,
   template: `
-    {{ iso3 }}
-    @if (countryDetail(); as countryDetail) {
-      <p>{{ countryDetail.name }}</p>
+    @if (countryDetail()?.country; as country) {
+      <app-country-detail-card [country]="country" />
     }
   `,
 })
