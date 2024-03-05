@@ -1,9 +1,7 @@
 import { State } from '@domain/feature/country/entities/state';
-import { City } from '@domain/feature/country/entities/city';
+import { Country } from '@domain/feature/country/entities/country';
 
 export interface CountryDetail {
-  id?: number;
-  name?: string;
+  country?: Country;
   states?: State[];
-  cities?: City[];
 }
