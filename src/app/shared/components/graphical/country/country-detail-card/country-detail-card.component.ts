@@ -9,7 +9,7 @@ import {
 } from '@angular/material/card';
 import { Country } from '@domain/feature/country/entities/country';
 import { MatButton } from '@angular/material/button';
-import { PrettyJsonPipe } from '@shared/components/graphical/country-detail-card/pretty-json.pipe';
+import { PrettyJsonPipe } from '@shared/components/graphical/country/country-detail-card/pretty-json.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
