@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { CountryDetailComponent } from '@views/country-detail/country-detail.component';
+import { MockProvider } from 'ng-mocks';
+import {
+  FindCountryDetailUsecase
+} from '@domain/feature/country/usecases/find-country-detail/find-country-detail.usecase';
 
 describe('CountryDetailComponent', () => {
   let fixture: ComponentFixture<CountryDetailComponent>;
@@ -8,7 +11,8 @@ describe('CountryDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, CountryDetailComponent],
+      imports: [CountryDetailComponent],
+      providers: [MockProvider(FindCountryDetailUsecase)]
     }).compileComponents();
   });
 

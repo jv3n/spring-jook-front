@@ -1,3 +1,7 @@
+import { inject } from '@angular/core';
+import { CountriesStore } from '@domain/feature/country/store/countries.store';
+
 export const appInitializerFactory = () => {
-  return async () => {};
+  const store = inject(CountriesStore);
+  return store.loadCountries;
 };

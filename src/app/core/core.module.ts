@@ -2,7 +2,6 @@ import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { appInitializerFactory } from '@core/technical/initializer/app-initializer.factory';
-import { Store } from '@ngrx/store';
 import { CountryCoreModule } from '@core/feature/country/country.core.module';
 import { ApiUrlPrependHttpInterceptor } from '@core/technical/api-url-prepend/api-url-prepend.http-interceptor';
 
@@ -22,7 +21,6 @@ import { ApiUrlPrependHttpInterceptor } from '@core/technical/api-url-prepend/ap
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializerFactory,
-      deps: [Store],
       multi: true,
     },
   ],

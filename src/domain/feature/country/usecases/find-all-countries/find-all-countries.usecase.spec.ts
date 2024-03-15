@@ -7,8 +7,11 @@ describe('FindAllCountriesUsecase', () => {
     const repository: CountryRepository = {
       getCountries: () => signal([]),
     } as unknown as CountryRepository;
+
     const useCase = new FindAllCountriesUsecase(repository);
 
-    expect(useCase.execute()()).toStrictEqual([]);
+    useCase.execute().subscribe({
+      next: (res) => expect(res).toStrictEqual([])
+    });
   });
 });
