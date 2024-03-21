@@ -12,16 +12,14 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { CountriesStore } from '@domain/feature/country/store/countries.store';
-import { DeepSignal } from '@ngrx/signals/src/deep-signal';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-country-table',
   standalone: true,
   template: `
-    @if (countries() && headers()) {
-      loading: {{ loading() }}
-      <table mat-table [dataSource]="countries()" class="mat-elevation-z8">
+    @if (this.store.countries() && this.store.headers()) {
+      loading: {{ this.store.loading() }}
+      <table mat-table [dataSource]="this.store.countries()" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>
           <td mat-cell *matCellDef="let cell">{{ cell.id }}</td>
@@ -72,8 +70,8 @@ import { DeepSignal } from '@ngrx/signals/src/deep-signal';
           <td mat-cell *matCellDef="let cell">{{ cell?.emoji }}</td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="headers()"></tr>
-        <tr mat-row *matRowDef="let row; columns: headers()"></tr>
+        <tr mat-header-row *matHeaderRowDef="this.store.headers()"></tr>
+        <tr mat-row *matRowDef="let row; columns: this.store.headers()"></tr>
       </table>
     }
   `,
@@ -89,10 +87,8 @@ import { DeepSignal } from '@ngrx/signals/src/deep-signal';
     MatRowDef,
     MatTable,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryTableComponent {
   readonly store = inject(CountriesStore);
-  countries = this.store.countries;
-  headers = this.store.headers;
-  loading: DeepSignal<boolean> = this.store.loading;
 }
