@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, Signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, ViewChild } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -9,22 +9,47 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable, MatTableDataSource
+  MatTable,
+  MatTableDataSource
 } from '@angular/material/table';
 import { CountriesStore } from '@domain/feature/country/store/countries.store';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
+import { AutocompleteComponent } from '@shared/components/graphical/structural/autocomplete.component';
+import { CountryTable } from '@domain/feature/country/entities/countryTable';
 
 @Component({
   selector: 'app-country-table',
   standalone: true,
+  imports: [
+    AutocompleteComponent,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatSort,
+    MatSortHeader,
+    MatPaginator
+  ],
   styles: `
-    th.mat-sort-header-sorted {
-      color: black;
-    }`,
+    :host {
+      margin: 1rem;
+      
+      th.mat-sort-header-sorted {
+        color: black;
+      }
+    }
+   `,
   template: `
     @if (this.store.countries() && this.store.headers()) {
+      <app-autocomplete [countries]="this.store.countries()" (selectedCountryEmitter)="selectCountry($event)"/>
       <table
         (matSortChange)="announceSortChange($event)"
         [dataSource]="dataSource()"
@@ -86,32 +111,16 @@ import { MatPaginator } from '@angular/material/paginator';
         <tr mat-row *matRowDef="let row; columns: this.store.headers()"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      <mat-paginator [pageSizeOptions]="[10, 20, 30]"
                      showFirstLastButtons
                      aria-label="Select page of periodic elements">
       </mat-paginator>
     }
   `,
-  imports: [
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderCellDef,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatSort,
-    MatSortHeader,
-    MatPaginator
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryTableComponent {
   private readonly _liveAnnouncer = inject(LiveAnnouncer);
-
   readonly store = inject(CountriesStore);
 
   dataSource = computed(() => new MatTableDataSource(this.store.countries()));
@@ -121,7 +130,7 @@ export class CountryTableComponent {
 
   constructor() {
     effect(() => {
-      this.dataSource().sort = this.sort
+      this.dataSource().sort = this.sort;
       this.dataSource().paginator = this.paginator;
     });
   }
@@ -137,5 +146,9 @@ export class CountryTableComponent {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  selectCountry = (countries: CountryTable[]) => {
+    this.dataSource().data = countries
   }
 }
