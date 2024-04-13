@@ -1,3 +1,4 @@
 .eslintrc.json
 cypress.config.ts
 cypress
+/src/app/shared/components/graphical/globe

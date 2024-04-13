@@ -10,14 +10,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-autocomplete',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    AsyncPipe
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe],
   styles: `
     .example-form {
       min-width: 150px;
@@ -32,10 +25,9 @@ import { AsyncPipe } from '@angular/common';
   template: `
     <form class="example-form">
       <mat-form-field class="example-full-width">
-
         <mat-label>Search by Name</mat-label>
 
-        <input type="text" matInput [formControl]="selectedCountry" [matAutocomplete]="auto">
+        <input type="text" matInput [formControl]="selectedCountry" [matAutocomplete]="auto" />
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           @for (country of filteredCountries$ | async; track country) {
             <mat-option [value]="country">{{ country.name }}</mat-option>
@@ -44,7 +36,7 @@ import { AsyncPipe } from '@angular/common';
       </mat-form-field>
     </form>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteComponent {
   selectedCountry = new FormControl<string | CountryTable>('');
@@ -56,12 +48,11 @@ export class AutocompleteComponent {
   constructor() {
     this.filteredCountries$ = this.selectedCountry.valueChanges.pipe(
       startWith(''),
-      map(countryName => {
-          const countries: CountryTable[] = countryName ? this._filter(countryName) : this.countries().slice();
-          this.selectedCountryEmitter.emit(countries);
-          return countries;
-        }
-      )
+      map((countryName) => {
+        const countries: CountryTable[] = countryName ? this._filter(countryName) : this.countries().slice();
+        this.selectedCountryEmitter.emit(countries);
+        return countries;
+      }),
     );
   }
 
@@ -71,7 +62,6 @@ export class AutocompleteComponent {
 
   _filter = (ctrl: string | CountryTable) => {
     const name = typeof ctrl === 'string' ? ctrl : (ctrl.name ?? '').toLowerCase();
-    return (this.countries() || []).filter(country => country.name?.toLowerCase().includes(name));
+    return (this.countries() || []).filter((country) => country.name?.toLowerCase().includes(name));
   };
-
 }

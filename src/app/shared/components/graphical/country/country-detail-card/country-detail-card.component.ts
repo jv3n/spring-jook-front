@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import {
   MatCard,
   MatCardActions,
   MatCardContent,
   MatCardHeader,
   MatCardSubtitle,
-  MatCardTitle,
+  MatCardTitle
 } from '@angular/material/card';
 import { Country } from '@domain/feature/country/entities/country';
 import { MatButton } from '@angular/material/button';
 import { PrettyJsonPipe } from '@shared/components/graphical/country/country-detail-card/pretty-json.pipe';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-country-detail-card',
   standalone: true,
   imports: [
@@ -23,7 +22,7 @@ import { PrettyJsonPipe } from '@shared/components/graphical/country/country-det
     MatCardSubtitle,
     MatCardActions,
     MatButton,
-    PrettyJsonPipe,
+    PrettyJsonPipe
   ],
   styles: `
     mat-card {
@@ -41,50 +40,53 @@ import { PrettyJsonPipe } from '@shared/components/graphical/country/country-det
     }
   `,
   template: `
-    <mat-card>
-      <mat-card-header>
-        <div>
-          <mat-card-title>{{ country.name }}</mat-card-title>
-          <mat-card-subtitle>{{ country.iso2 }} - {{ country.iso3 }}</mat-card-subtitle>
-        </div>
-        <span class="emoji">{{ country.emoji }}</span>
-      </mat-card-header>
-
-      <mat-card-content>
-        <p>Capital: {{ country.capitalName }}</p>
-        <p>Currency: {{ country.currency }}</p>
-        <p>Currency Name: {{ country.currencyName }}</p>
-        <p>Currency Symbol: {{ country.currencySymbol }}</p>
-        <p>Native Name: {{ country.nativeName }}</p>
-        <p>Region: {{ country.region }} (ID: {{ country.regionId }})</p>
-        <p>Subregion: {{ country.subregion }} (ID: {{ country.subregionId }})</p>
-        <p>Nationality: {{ country.nationality }}</p>
-        <p>Latitude: {{ country.latitude }}</p>
-        <p>Longitude: {{ country.longitude }}</p>
-
-        @if (showMore) {
-          <p>ID: {{ country.id }}</p>
-          <p>Numeric Code: {{ country.numericCode }}</p>
-          <p>Phone Code: {{ country.phoneCode }}</p>
-          <p>TLD: {{ country.tld }}</p>
-          <p>Emoji Unicode: {{ country.emojiU }}</p>
+    @if (country(); as country) {
+      <mat-card>
+        <mat-card-header>
           <div>
-            Timezones:
-            <code>
-              <pre>{{ country.timezones | prettyprint }}</pre>
-            </code>
+            <mat-card-title>{{ country.name }}</mat-card-title>
+            <mat-card-subtitle>{{ country.iso2 }} - {{ country.iso3 }}</mat-card-subtitle>
           </div>
-        }
-      </mat-card-content>
+          <span class="emoji">{{ country.emoji }}</span>
+        </mat-card-header>
 
-      <mat-card-actions>
-        <button mat-button (click)="toggleMore()">{{ viewMoreButton }}</button>
-      </mat-card-actions>
-    </mat-card>
+        <mat-card-content>
+          <p>Capital: {{ country.capitalName }}</p>
+          <p>Currency: {{ country.currency }}</p>
+          <p>Currency Name: {{ country.currencyName }}</p>
+          <p>Currency Symbol: {{ country.currencySymbol }}</p>
+          <p>Native Name: {{ country.nativeName }}</p>
+          <p>Region: {{ country.region }} (ID: {{ country.regionId }})</p>
+          <p>Subregion: {{ country.subregion }} (ID: {{ country.subregionId }})</p>
+          <p>Nationality: {{ country.nationality }}</p>
+          <p>Latitude: {{ country.latitude }}</p>
+          <p>Longitude: {{ country.longitude }}</p>
+
+          @if (showMore) {
+            <p>ID: {{ country.id }}</p>
+            <p>Numeric Code: {{ country.numericCode }}</p>
+            <p>Phone Code: {{ country.phoneCode }}</p>
+            <p>TLD: {{ country.tld }}</p>
+            <p>Emoji Unicode: {{ country.emojiU }}</p>
+            <div>
+              Timezones:
+              <code>
+                <pre>{{ country.timezones | prettyprint }}</pre>
+              </code>
+            </div>
+          }
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button (click)="toggleMore()">{{ viewMoreButton }}</button>
+        </mat-card-actions>
+      </mat-card>
+    }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryDetailCardComponent {
-  @Input() country!: Country;
+  country = input.required<Country>();
 
   showMore = false;
   viewMoreButton = 'View More';

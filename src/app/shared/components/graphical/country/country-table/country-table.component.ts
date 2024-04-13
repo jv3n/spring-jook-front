@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, output, ViewChild } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -10,7 +10,7 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
+  MatTableDataSource,
 } from '@angular/material/table';
 import { CountriesStore } from '@domain/feature/country/store/countries.store';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
@@ -36,20 +36,25 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
     MatTable,
     MatSort,
     MatSortHeader,
-    MatPaginator
+    MatPaginator,
   ],
   styles: `
     :host {
       margin: 1rem;
-      
+
       th.mat-sort-header-sorted {
         color: black;
       }
+
+      tr.mat-mdc-row:hover {
+        cursor: pointer;
+        background-color: rgba(255, 249, 240, 0.65);
+      }
     }
-   `,
+  `,
   template: `
     @if (this.store.countries() && this.store.headers()) {
-      <app-autocomplete [countries]="this.store.countries()" (selectedCountryEmitter)="selectCountry($event)"/>
+      <app-autocomplete [countries]="this.store.countries()" (selectedCountryEmitter)="selectCountry($event)" />
       <table
         (matSortChange)="announceSortChange($event)"
         [dataSource]="dataSource()"
@@ -108,22 +113,25 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="this.store.headers()"></tr>
-        <tr mat-row *matRowDef="let row; columns: this.store.headers()"></tr>
+        <tr mat-row *matRowDef="let row; columns: this.store.headers()" (click)="detail(row)"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[10, 20, 30]"
-                     showFirstLastButtons
-                     aria-label="Select page of periodic elements">
+      <mat-paginator
+        [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
       </mat-paginator>
     }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryTableComponent {
   private readonly _liveAnnouncer = inject(LiveAnnouncer);
   readonly store = inject(CountriesStore);
 
   dataSource = computed(() => new MatTableDataSource(this.store.countries()));
+  emitCountryDetail = output<CountryTable>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -142,13 +150,17 @@ export class CountryTableComponent {
     // Furthermore, you can customize the message to add additional
     // details about the values being sorted.
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      void this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      void this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 
   selectCountry = (countries: CountryTable[]) => {
-    this.dataSource().data = countries
-  }
+    this.dataSource().data = countries;
+  };
+
+  detail = (val: CountryTable) => {
+    this.emitCountryDetail.emit(val);
+  };
 }

@@ -2,20 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-all-countries/find-all-countries.usecase';
 import { MockProvider } from 'ng-mocks';
 import { CountryTableComponent } from '@shared/components/graphical/country/country-table/country-table.component';
+import {
+  CountryDetailCardComponent
+} from '@shared/components/graphical/country/country-detail-card/country-detail-card.component';
 
-describe('CountryTableComponent', () => {
-  let component: CountryTableComponent;
-  let fixture: ComponentFixture<CountryTableComponent>;
+describe('CountryDetailCardComponent', () => {
+  let component: CountryDetailCardComponent;
+  let fixture: ComponentFixture<CountryDetailCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CountryTableComponent],
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [CountryDetailCardComponent],
       providers: [MockProvider(FindAllCountriesUsecase)],
-    }).compileComponents();
+    });
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CountryTableComponent);
+    fixture = TestBed.createComponent(CountryDetailCardComponent);
     component = fixture.componentInstance;
   });
 

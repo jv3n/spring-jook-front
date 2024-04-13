@@ -7,7 +7,7 @@ import {
   input,
   InputSignal,
   Signal,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   MatCell,
@@ -20,7 +20,7 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource
+  MatTableDataSource,
 } from '@angular/material/table';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
 import { State } from '@domain/feature/country/entities/state';
@@ -44,7 +44,7 @@ import { MatCard } from '@angular/material/card';
     MatCellDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatCard
+    MatCard,
   ],
   styles: `
     mat-card {
@@ -95,7 +95,7 @@ import { MatCard } from '@angular/material/card';
         </table>
       }
     </mat-card>
-  `
+  `,
 })
 export class CountryDetailListComponent {
   private readonly _liveAnnouncer = inject(LiveAnnouncer);
@@ -108,15 +108,15 @@ export class CountryDetailListComponent {
       name: state.name,
       type: state.type,
       latitude: state.latitude,
-      longitude: state.longitude
-    }))
+      longitude: state.longitude,
+    })),
   );
   dataSource = computed(() => new MatTableDataSource(this.states()));
 
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    effect(() => this.dataSource().sort = this.sort);
+    effect(() => (this.dataSource().sort = this.sort));
   }
 
   /** Announce the change in sort state for assistive technology. */
@@ -126,9 +126,9 @@ export class CountryDetailListComponent {
     // Furthermore, you can customize the message to add additional
     // details about the values being sorted.
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      void this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      void this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 }
