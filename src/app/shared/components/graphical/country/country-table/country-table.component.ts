@@ -18,7 +18,6 @@ import { CountriesStore } from '@domain/feature/country/store/countries.store';
   standalone: true,
   template: `
     @if (this.store.countries() && this.store.headers()) {
-      loading: {{ this.store.loading() }}
       <table mat-table [dataSource]="this.store.countries()" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>Id</th>

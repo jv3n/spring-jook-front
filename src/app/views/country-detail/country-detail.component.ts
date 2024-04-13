@@ -29,7 +29,6 @@ export class CountryDetailComponent {
     effect(() => {
       this.findCountryDetailUsecase.execute(this.iso3).subscribe((countryDetail) => {
         this.countryDetail.set(countryDetail);
-        console.log(this.countryDetail());
       });
     });
   }

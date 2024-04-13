@@ -94,8 +94,6 @@ import { MatCard } from '@angular/material/card';
 export class CountryDetailListComponent {
   private readonly _liveAnnouncer = inject(LiveAnnouncer);
 
-  //@ViewChild(MatSort) sort: MatSort;
-
   states: InputSignal<State[]> = input.required();
   headers: Signal<string[]> = computed(() => Object.keys(this.states()[0]).filter((e) => e !== 'cities'));
   vals = computed(() =>
@@ -107,10 +105,6 @@ export class CountryDetailListComponent {
       longitude: state.longitude,
     })),
   );
-
-  constructor() {
-    effect(() => console.log(this.states));
-  }
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {

@@ -1,11 +1,11 @@
 import { HomeComponent } from '@views/home/home.component';
 import { headerRoutes } from '@views/header/header.routes';
-import { ViewComponent } from '@shared/components/structural/view/view.component';
+import { HeaderComponent } from '@views/header/header.component';
 
 export default [
   {
     path: '',
-    component: ViewComponent,
+    component: HeaderComponent,
     children: [
       {
         outlet: 'header',

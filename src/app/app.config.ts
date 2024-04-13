@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideStoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { provideRouter, withComponentInputBinding, withRouterConfig } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withRouterConfig, withViewTransitions } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@core/core.module';
@@ -25,7 +25,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
 
     // Routing
-    provideRouter(appRoutes, withComponentInputBinding(), withRouterConfig({ paramsInheritanceStrategy: 'always' })),
+    provideRouter(
+      appRoutes,
+      withComponentInputBinding(),
+      withViewTransitions(),
+      withRouterConfig({ paramsInheritanceStrategy: 'always' }),
+    ),
+
     provideStoreDevtools(),
   ],
 };
