@@ -7,6 +7,7 @@ import {
   input,
   InputSignal,
   Signal,
+  ViewChild
 } from '@angular/core';
 import {
   MatCell,
@@ -19,6 +20,7 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
+  MatTableDataSource
 } from '@angular/material/table';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
 import { State } from '@domain/feature/country/entities/state';
@@ -42,22 +44,26 @@ import { MatCard } from '@angular/material/card';
     MatCellDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatCard,
+    MatCard
   ],
   styles: `
     mat-card {
       margin: 1rem 1rem;
+    }
+
+    th.mat-sort-header-sorted {
+      color: black;
     }
   `,
   template: `
     <mat-card>
       @if (vals() && headers()) {
         <table
-          mat-table
-          [dataSource]="vals()"
-          matSort
           (matSortChange)="announceSortChange($event)"
+          [dataSource]="dataSource()"
           class="mat-elevation-z8"
+          mat-table
+          matSort
         >
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">No.</th>
@@ -89,7 +95,7 @@ import { MatCard } from '@angular/material/card';
         </table>
       }
     </mat-card>
-  `,
+  `
 })
 export class CountryDetailListComponent {
   private readonly _liveAnnouncer = inject(LiveAnnouncer);
@@ -102,9 +108,16 @@ export class CountryDetailListComponent {
       name: state.name,
       type: state.type,
       latitude: state.latitude,
-      longitude: state.longitude,
-    })),
+      longitude: state.longitude
+    }))
   );
+  dataSource = computed(() => new MatTableDataSource(this.states()));
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor() {
+    effect(() => this.dataSource().sort = this.sort);
+  }
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
