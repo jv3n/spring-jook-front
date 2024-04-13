@@ -14,6 +14,7 @@ import {
 import { CountriesStore } from '@domain/feature/country/store/countries.store';
 import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-country-table',
@@ -84,6 +85,11 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
         <tr mat-header-row *matHeaderRowDef="this.store.headers()"></tr>
         <tr mat-row *matRowDef="let row; columns: this.store.headers()"></tr>
       </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
     }
   `,
   imports: [
@@ -98,7 +104,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
     MatRowDef,
     MatTable,
     MatSort,
-    MatSortHeader
+    MatSortHeader,
+    MatPaginator
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -110,9 +117,13 @@ export class CountryTableComponent {
   dataSource = computed(() => new MatTableDataSource(this.store.countries()));
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor() {
-    effect(() => this.dataSource().sort = this.sort);
+    effect(() => {
+      this.dataSource().sort = this.sort
+      this.dataSource().paginator = this.paginator;
+    });
   }
 
   /** Announce the change in sort state for assistive technology. */
