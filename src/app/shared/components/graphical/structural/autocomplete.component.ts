@@ -43,14 +43,14 @@ export class AutocompleteComponent {
   countries = input.required<CountryTable[]>();
   filteredCountries$!: Observable<CountryTable[]>;
 
-  selectedCountryEmitter = output<CountryTable[]>();
+  selectedCountryEmitter = output<CountryTable[] | null>();
 
   constructor() {
     this.filteredCountries$ = this.selectedCountry.valueChanges.pipe(
       startWith(''),
       map((countryName) => {
         const countries: CountryTable[] = countryName ? this._filter(countryName) : this.countries().slice();
-        this.selectedCountryEmitter.emit(countries);
+        this.selectedCountryEmitter.emit(countryName ? countries : null);
         return countries;
       }),
     );
@@ -61,7 +61,7 @@ export class AutocompleteComponent {
   }
 
   _filter = (ctrl: string | CountryTable) => {
-    const name = typeof ctrl === 'string' ? ctrl : (ctrl.name ?? '').toLowerCase();
+    const name = typeof ctrl === 'string' ? ctrl.toLowerCase() : (ctrl.name ?? '').toLowerCase();
     return (this.countries() || []).filter((country) => country.name?.toLowerCase().includes(name));
   };
 }

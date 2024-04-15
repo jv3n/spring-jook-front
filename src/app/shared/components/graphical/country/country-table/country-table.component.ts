@@ -18,6 +18,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { AutocompleteComponent } from '@shared/components/graphical/structural/autocomplete.component';
 import { CountryTable } from '@domain/feature/country/entities/countryTable';
+import { FiltersComponent } from '@shared/components/graphical/structural/filters.component';
 
 @Component({
   selector: 'app-country-table',
@@ -37,6 +38,7 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
     MatSort,
     MatSortHeader,
     MatPaginator,
+    FiltersComponent,
   ],
   styles: `
     :host {
@@ -50,11 +52,16 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
         cursor: pointer;
         background-color: rgba(255, 249, 240, 0.65);
       }
+
+      .mat-background-primary {
+        background-color: rgba(207, 250, 231, 0.7);
+      }
     }
   `,
   template: `
-    @if (this.store.countries() && this.store.headers()) {
-      <app-autocomplete [countries]="this.store.countries()" (selectedCountryEmitter)="selectCountry($event)" />
+    @if (store.countries() && store.headers()) {
+      <app-filters [countries]="store.countries()" (selectedCountryEmitter)="selectCountry($event)" />
+
       <table
         (matSortChange)="announceSortChange($event)"
         [dataSource]="dataSource()"
@@ -112,7 +119,7 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
           <td mat-cell *matCellDef="let cell">{{ cell?.emoji }}</td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="this.store.headers()"></tr>
+        <tr mat-header-row *matHeaderRowDef="this.store.headers()" class="mat-background-primary"></tr>
         <tr mat-row *matRowDef="let row; columns: this.store.headers()" (click)="detail(row)"></tr>
       </table>
 
@@ -120,8 +127,7 @@ import { CountryTable } from '@domain/feature/country/entities/countryTable';
         [pageSizeOptions]="[10, 20, 30]"
         showFirstLastButtons
         aria-label="Select page of periodic elements"
-      >
-      </mat-paginator>
+      />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

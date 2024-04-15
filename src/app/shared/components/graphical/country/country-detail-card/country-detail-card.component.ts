@@ -5,7 +5,7 @@ import {
   MatCardContent,
   MatCardHeader,
   MatCardSubtitle,
-  MatCardTitle
+  MatCardTitle,
 } from '@angular/material/card';
 import { Country } from '@domain/feature/country/entities/country';
 import { MatButton } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { PrettyJsonPipe } from '@shared/components/graphical/country/country-det
     MatCardSubtitle,
     MatCardActions,
     MatButton,
-    PrettyJsonPipe
+    PrettyJsonPipe,
   ],
   styles: `
     mat-card {
