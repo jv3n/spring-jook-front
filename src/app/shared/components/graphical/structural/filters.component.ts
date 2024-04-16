@@ -4,6 +4,7 @@ import { AutocompleteComponent } from '@shared/components/graphical/structural/a
 import { CountryTable } from '@domain/feature/country/entities/countryTable';
 import { MatIcon } from '@angular/material/icon';
 import { SelectRegionComponent } from '@shared/components/graphical/structural/select-region.component';
+import { FiltersEmitterFactory } from '@shared/components/graphical/structural/filters-emitter.factory';
 
 @Component({
   selector: 'app-filters',
@@ -44,39 +45,19 @@ export class FiltersComponent {
 
   emitSelectedCountry = (byCountryName: CountryTable[] | null) => {
     this.selectedByCountryName = byCountryName;
-    this.computeFilters();
+    this.emitFilters();
   };
 
   addRegionFilter = (selectedRegions: string[]) => {
     this.selectedByRegion = this.countries().filter((country) =>
       selectedRegions.find((region) => country.region === region),
     );
-    this.computeFilters();
+    this.emitFilters();
   };
 
-  computeFilters = () => {
-    if (!this.selectedByCountryName && !this.selectedByRegion) {
-      this.selectedCountryEmitter.emit(this.countries());
-      return;
-    }
-
-    if (this.selectedByCountryName && this.selectedByRegion) {
-      this.selectedCountryEmitter.emit(
-        this.selectedByRegion.filter((countryReg) =>
-          this.selectedByCountryName!.find((countryName) => countryName.name === countryReg.name),
-        ),
-      );
-      return;
-    }
-
-    if (this.selectedByCountryName && !this.selectedByRegion) {
-      this.selectedCountryEmitter.emit(this.selectedByCountryName);
-      return;
-    }
-
-    if (!this.selectedByCountryName && this.selectedByRegion) {
-      this.selectedCountryEmitter.emit(this.selectedByRegion);
-      return;
-    }
+  emitFilters = () => {
+    this.selectedCountryEmitter.emit(
+      FiltersEmitterFactory().apply(this.selectedByCountryName, this.selectedByRegion) ?? this.countries(),
+    );
   };
 }

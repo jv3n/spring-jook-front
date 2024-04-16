@@ -13,8 +13,7 @@ import {
   MatTableDataSource,
 } from '@angular/material/table';
 import { CountriesStore } from '@domain/feature/country/store/countries.store';
-import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AutocompleteComponent } from '@shared/components/graphical/structural/autocomplete.component';
 import { CountryTable } from '@domain/feature/country/entities/countryTable';
@@ -54,7 +53,7 @@ import { FiltersComponent } from '@shared/components/graphical/structural/filter
       }
 
       .mat-background-primary {
-        background-color: rgba(207, 250, 231, 0.7);
+        background-color: rgba(233, 207, 250, 0.7);
       }
     }
   `,
@@ -62,13 +61,7 @@ import { FiltersComponent } from '@shared/components/graphical/structural/filter
     @if (store.countries() && store.headers()) {
       <app-filters [countries]="store.countries()" (selectedCountryEmitter)="selectCountry($event)" />
 
-      <table
-        (matSortChange)="announceSortChange($event)"
-        [dataSource]="dataSource()"
-        class="mat-elevation-z8"
-        mat-table
-        matSort
-      >
+      <table [dataSource]="dataSource()" class="mat-elevation-z8" mat-table matSort>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">Id</th>
           <td mat-cell *matCellDef="let cell">{{ cell.id }}</td>
@@ -133,7 +126,6 @@ import { FiltersComponent } from '@shared/components/graphical/structural/filter
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryTableComponent {
-  private readonly _liveAnnouncer = inject(LiveAnnouncer);
   readonly store = inject(CountriesStore);
 
   dataSource = computed(() => new MatTableDataSource(this.store.countries()));
@@ -147,19 +139,6 @@ export class CountryTableComponent {
       this.dataSource().sort = this.sort;
       this.dataSource().paginator = this.paginator;
     });
-  }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      void this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      void this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 
   selectCountry = (countries: CountryTable[]) => {

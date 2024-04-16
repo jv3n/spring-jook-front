@@ -3,11 +3,10 @@ import {
   Component,
   computed,
   effect,
-  inject,
   input,
   InputSignal,
   Signal,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import {
   MatCell,
@@ -20,15 +19,13 @@ import {
   MatRow,
   MatRowDef,
   MatTable,
-  MatTableDataSource,
+  MatTableDataSource
 } from '@angular/material/table';
-import { MatSort, MatSortHeader, Sort } from '@angular/material/sort';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { State } from '@domain/feature/country/entities/state';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatCard } from '@angular/material/card';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-country-detail-list',
   standalone: true,
   imports: [
@@ -44,7 +41,7 @@ import { MatCard } from '@angular/material/card';
     MatCellDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatCard,
+    MatCard
   ],
   styles: `
     mat-card {
@@ -58,13 +55,7 @@ import { MatCard } from '@angular/material/card';
   template: `
     <mat-card>
       @if (vals() && headers()) {
-        <table
-          (matSortChange)="announceSortChange($event)"
-          [dataSource]="dataSource()"
-          class="mat-elevation-z8"
-          mat-table
-          matSort
-        >
+        <table [dataSource]="dataSource()" class="mat-elevation-z8" mat-table matSort>
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">No.</th>
             <td mat-cell *matCellDef="let element">{{ element.id }}</td>
@@ -96,39 +87,17 @@ import { MatCard } from '@angular/material/card';
       }
     </mat-card>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryDetailListComponent {
-  private readonly _liveAnnouncer = inject(LiveAnnouncer);
-
   states: InputSignal<State[]> = input.required();
   headers: Signal<string[]> = computed(() => Object.keys(this.states()[0]).filter((e) => e !== 'cities'));
-  vals = computed(() =>
-    this.states().map((state) => ({
-      id: state.id,
-      name: state.name,
-      type: state.type,
-      latitude: state.latitude,
-      longitude: state.longitude,
-    })),
-  );
+  vals = computed(() => this.states().map((state) => ({ ...state })));
   dataSource = computed(() => new MatTableDataSource(this.states()));
 
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
     effect(() => (this.dataSource().sort = this.sort));
-  }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      void this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      void this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 }
