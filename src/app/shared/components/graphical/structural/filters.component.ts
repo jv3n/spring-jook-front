@@ -13,7 +13,7 @@ import { FiltersEmitterFactory } from '@shared/components/graphical/structural/f
   styles: ``,
   template: `
     <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon>filter_alt</mat-icon>
@@ -29,8 +29,6 @@ import { FiltersEmitterFactory } from '@shared/components/graphical/structural/f
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersComponent {
-  panelOpenState = false;
-
   countries = input.required<CountryTable[]>();
   regions = computed(
     () =>

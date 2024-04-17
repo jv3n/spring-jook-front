@@ -24,6 +24,17 @@ import {
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { State } from '@domain/feature/country/entities/state';
 import { MatCard } from '@angular/material/card';
+import { MatPaginator } from '@angular/material/paginator';
+import { AutocompleteComponent } from '@shared/components/graphical/structural/autocomplete.component';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
+import { SelectRegionComponent } from '@shared/components/graphical/structural/select-region.component';
+import { CountryTable } from '@domain/feature/country/entities/countryTable';
 
 @Component({
   selector: 'app-country-detail-list',
@@ -41,15 +52,34 @@ import { MatCard } from '@angular/material/card';
     MatCellDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatCard
+    MatCard,
+    MatPaginator,
+    AutocompleteComponent,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatIcon,
+    SelectRegionComponent
   ],
   styles: `
-    mat-card {
-      margin: 1rem 1rem;
-    }
+    :host {
+      mat-card {
+        margin: 1rem 1rem;
+      }
 
-    th.mat-sort-header-sorted {
-      color: black;
+      th.mat-sort-header-sorted {
+        color: black;
+      }
+
+      tr.mat-mdc-row:hover {
+        cursor: pointer;
+        background-color: rgba(255, 249, 240, 0.65);
+      }
+
+      .mat-background-primary {
+        background-color: rgba(250, 212, 207, 0.7);
+      }
     }
   `,
   template: `
@@ -81,10 +111,16 @@ import { MatCard } from '@angular/material/card';
             <td mat-cell *matCellDef="let element">{{ element.longitude }}</td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="headers()"></tr>
-          <tr mat-row *matRowDef="let row; columns: headers()"></tr>
+          <tr mat-header-row *matHeaderRowDef="headers()" class="mat-background-primary"></tr>
+          <tr mat-row *matRowDef="let row; columns: headers()" (click)="displayCities(row)"></tr>
         </table>
       }
+
+      <mat-paginator
+        [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      />
     </mat-card>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -96,8 +132,16 @@ export class CountryDetailListComponent {
   dataSource = computed(() => new MatTableDataSource(this.states()));
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor() {
-    effect(() => (this.dataSource().sort = this.sort));
+    effect(() => {
+      this.dataSource().sort = this.sort
+      this.dataSource().paginator = this.paginator;
+    });
   }
+
+  displayCities = (state: State) => {
+    console.log(state.cities);
+  };
 }

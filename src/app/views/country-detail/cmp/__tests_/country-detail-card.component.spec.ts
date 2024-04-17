@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FindAllCountriesUsecase } from '@domain/feature/country/usecases/find-all-countries/find-all-countries.usecase';
 import { MockProvider } from 'ng-mocks';
-import { CountryDetailCardComponent } from '@shared/components/graphical/country/country-detail-card/country-detail-card.component';
+import { CountryDetailCardComponent } from '@views/country-detail/cmp/country-detail-card.component';
 
 describe('CountryDetailCardComponent', () => {
   let component: CountryDetailCardComponent;
