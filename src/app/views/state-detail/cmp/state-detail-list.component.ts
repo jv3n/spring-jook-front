@@ -5,7 +5,6 @@ import {
   effect,
   input,
   InputSignal,
-  output,
   Signal,
   ViewChild,
 } from '@angular/core';
@@ -35,9 +34,10 @@ import {
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { SelectRegionComponent } from '@shared/components/graphical/structural/select-region.component';
+import { CountryTable } from '@domain/feature/country/entities/countryTable';
 
 @Component({
-  selector: 'app-country-detail-list',
+  selector: 'app-state-detail-list',
   standalone: true,
   imports: [
     MatTable,
@@ -112,7 +112,7 @@ import { SelectRegionComponent } from '@shared/components/graphical/structural/s
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="headers()" class="mat-background-primary"></tr>
-          <tr mat-row *matRowDef="let row; columns: headers()" (click)="stateDetailEmitter(row)"></tr>
+          <tr mat-row *matRowDef="let row; columns: headers()" (click)="displayCities(row)"></tr>
         </table>
       }
 
@@ -125,12 +125,11 @@ import { SelectRegionComponent } from '@shared/components/graphical/structural/s
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryDetailListComponent {
+export class StateDetailListComponent {
   states: InputSignal<State[]> = input.required();
   headers: Signal<string[]> = computed(() => Object.keys(this.states()[0]).filter((e) => e !== 'cities'));
   vals = computed(() => this.states().map((state) => ({ ...state })));
   dataSource = computed(() => new MatTableDataSource(this.states()));
-  emitStateDetail = output<State>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -142,7 +141,7 @@ export class CountryDetailListComponent {
     });
   }
 
-  stateDetailEmitter = (state: State) => {
-    this.emitStateDetail.emit(state);
+  displayCities = (state: State) => {
+    console.log(state.cities);
   };
 }

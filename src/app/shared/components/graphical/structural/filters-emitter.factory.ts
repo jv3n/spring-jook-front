@@ -1,10 +1,7 @@
 import { CountryTable } from '@domain/feature/country/entities/countryTable';
 
 export const FiltersEmitterFactory = () => ({
-  apply: (
-    byName: CountryTable[] | null,
-    byRegion: CountryTable[] | null
-  ): CountryTable[] | null => {
+  apply: (byName: CountryTable[] | null, byRegion: CountryTable[] | null): CountryTable[] | null => {
     if (!byName && !byRegion) {
       return null;
     }

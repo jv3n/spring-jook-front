@@ -21,7 +21,7 @@ import { MatIcon } from '@angular/material/icon';
 import { SelectRegionComponent } from '@shared/components/graphical/structural/select-region.component';
 
 @Component({
-  selector: 'app-country-detail-card',
+  selector: 'app-state-detail-card',
   standalone: true,
   imports: [
     MatCard,
@@ -111,7 +111,7 @@ import { SelectRegionComponent } from '@shared/components/graphical/structural/s
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryDetailCardComponent {
+export class StateDetailCardComponent {
   country = input.required<Country>();
 
   showMore = false;

@@ -22,13 +22,13 @@
       "@domain/*": ["src/domain/*"],
       "@env/*": ["src/environments/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@views/*": ["src/app/views/*"],
+      "@views/*": ["src/app/views/*"]
     },
     "sourceMap": true,
     "strict": true,
     "target": "es2022",
     "types": ["googlemaps"],
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

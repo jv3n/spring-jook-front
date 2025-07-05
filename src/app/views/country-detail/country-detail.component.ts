@@ -4,6 +4,8 @@ import { CountryDetail } from '@domain/feature/country/entities/countryDetail';
 import { CountryDetailCardComponent } from '@views/country-detail/cmp/country-detail-card.component';
 import { CountryDetailListComponent } from '@views/country-detail/cmp/country-detail-list.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Router } from '@angular/router';
+import { State } from '@domain/feature/country/entities/state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
         }
 
         @if (countryDetail()?.states; as states) {
-          <app-country-detail-list [states]="states" />
+          <app-country-detail-list [states]="states" (emitStateDetail)="emitStateDetail($event)" />
         }
       </mat-tab>
       <mat-tab label="Second"> Content 2</mat-tab>
@@ -27,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 })
 export class CountryDetailComponent {
   readonly findCountryDetailUsecase = inject(FindCountryDetailUsecase);
+  readonly router = inject(Router);
 
   @Input() iso3!: string;
   countryDetail: WritableSignal<CountryDetail | undefined> = signal(undefined);
@@ -38,4 +41,8 @@ export class CountryDetailComponent {
       });
     });
   }
+
+  emitStateDetail = (evt: State) => {
+    void this.router.navigate(['state-detail', evt.id]);
+  };
 }

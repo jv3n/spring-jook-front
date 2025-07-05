@@ -39,7 +39,7 @@ import { MatCard } from '@angular/material/card';
     MatSortHeader,
     MatPaginator,
     FiltersComponent,
-    MatCard
+    MatCard,
   ],
   styles: `
     :host {
@@ -105,7 +105,8 @@ import { MatCard } from '@angular/material/card';
           </ng-container>
 
           <ng-container matColumnDef="subregion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by subregion">SubRegion
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by subregion">
+              SubRegion
             </th>
             <td mat-cell *matCellDef="let cell">{{ cell?.subregion }}</td>
           </ng-container>

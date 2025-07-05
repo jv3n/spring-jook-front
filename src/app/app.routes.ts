@@ -13,8 +13,13 @@ export const appRoutes: Routes = [
   },
   {
     path: 'country-detail/:iso3',
-    title: 'Detail Country',
+    title: 'Country Detail',
     loadChildren: () => import('@views/country-detail/country-detail.routes'),
+  },
+  {
+    path: 'state-detail/:stateId',
+    title: 'State Detail',
+    loadChildren: () => import('@views/state-detail/state-detail.routes'),
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
